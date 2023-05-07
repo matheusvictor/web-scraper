@@ -3,8 +3,7 @@ from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
 
 try:
-    # html = urlopen('http://pythonscraping.com/pages/page1.html')
-    html = urlopen('http://pythonscraping-thisurldoesnotexist.com/')
+    html = urlopen('http://pythonscraping.com/pages/page1.html')
 except HTTPError as e:
     print(e)
 except URLError as e:
@@ -12,4 +11,10 @@ except URLError as e:
 else:
     print('It worked!')
     bs = BeautifulSoup(html.read(), 'html.parser')
-    print(bs.h1)
+    try:
+        attrNotExists = bs.find('nonExistentTag')
+    except AttributeError as e:
+        print(e)
+    else:
+        print(bs)
+        print(attrNotExists)
